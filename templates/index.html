@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b1118"
+    >
+
+    <title>KMZ Studio</title>
+
+    <!-- Estilos do mapa Leaflet -->
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+>
+    >
+
+    <!-- Estilos do KMZ Studio -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <!-- MAPA -->
+    <div id="map"></div>
+
+    <!-- PAINEL ESQUERDO -->
+    <aside class="sidebar">
+
+        <div class="sidebar-header">
+
+            <div>
+                <span class="sidebar-label">
+                    ARQUIVOS
+                </span>
+
+                <h2>
+                    Linhas importadas
+                </h2>
+            </div>
+
+            <button
+                id="collapse-sidebar"
+                class="collapse-button"
+                type="button"
+                title="Recolher painel"
+                aria-label="Recolher painel lateral"
+            >
+                ‹
+            </button>
+
+        </div>
+
+        <!-- Seletor de arquivos oculto -->
+        <input
+            id="file-input"
+            type="file"
+            accept=".kml,.kmz"
+            multiple
+            hidden
+        >
+
+        <!-- Botão de importação -->
+        <button
+            id="import-button"
+            class="import-button"
+            type="button"
+        >
+            <span class="import-icon">
+                ＋
+            </span>
+
+            Importar KML / KMZ
+        </button>
+
+        <!-- Lista de rotas -->
+        <div class="route-list">
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ⌁
+                </div>
+
+                <p>
+                    Nenhuma linha importada
+                </p>
+
+                <span>
+                    Importe arquivos KML ou KMZ para visualizar as rotas no mapa.
+                </span>
+
+            </div>
+
+        </div>
+
+    </aside>
+        <!-- BARRA SUPERIOR -->
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+
+                <svg viewBox="0 0 48 48">
+
+                    <rect
+                        x="1"
+                        y="1"
+                        width="46"
+                        height="46"
+                        rx="14"
+                    />
+
+                    <path
+                        class="brand-route"
+                        d="M13 33 C17 27 16 20 23 18 C29 16 31 23 36 14"
+                    />
+
+                    <circle
+                        class="brand-point"
+                        cx="13"
+                        cy="33"
+                        r="3"
+                    />
+
+                    <path
+                        class="brand-pin"
+                        d="M36 9.5 C31.6 9.5 28.2 12.8 28.2 17.1 C28.2 23.2 36 31.2 36 31.2 C36 31.2 43.8 23.2 43.8 17.1 C43.8 12.8 40.4 9.5 36 9.5 Z"
+                    />
+
+                    <circle
+                        class="brand-pin-hole"
+                        cx="36"
+                        cy="17"
+                        r="2.4"
+                    />
+
+                </svg>
+
+            </div>
+
+            <div class="brand-text">
+                <h1>KMZ Studio</h1>
+            </div>
+
+        </div>
+
+        <div class="top-search">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                id="route-search"
+                type="text"
+                placeholder="Pesquisar número ou descrição da linha"
+                autocomplete="off"
+            >
+
+        </div>
+
+        <div class="top-actions">
+
+            <button
+                class="icon-button"
+                type="button"
+                title="Tema"
+            >
+                ☾
+            </button>
+
+            <button
+                class="icon-button"
+                type="button"
+                title="Configurações"
+            >
+                ⚙
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- LEGENDA -->
+    <div class="legend-panel hidden"></div>
+
+    <!-- PAINEL DIREITO -->
+    <aside class="details-panel hidden">
+
+        <div class="details-header">
+
+            <span>
+                DETALHES DA LINHA
+            </span>
+
+            <button
+                type="button"
+                title="Fechar"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="details-empty">
+            Selecione uma linha para ver suas informações.
+        </div>
+
+    </aside>
+        <!-- Leaflet -->
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""
+    ></script>
+
+    <!-- JSZip, necessário para abrir arquivos KMZ -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
+    ></script>
+
+    <!-- JavaScript do KMZ Studio -->
+    <script
+        src="{{ url_for('static', filename='js/app.js') }}"
+    ></script>
+
+</body>
+</html>
